@@ -1,4 +1,4 @@
-import { getProducts } from "./firebase.js";
+import { getProducts, getProduct } from "./firebase.js";
 
 const renderCards = async (productsArr) => {
 
@@ -33,8 +33,63 @@ renderCards(getProducts());
 
 const addEvent = () => {
 
-    const comprarBtn = document.querySelectorAll(".comprarBtn");
+    const comprarBtns = document.querySelectorAll(".comprarBtn");
   
-     console.log(comprarBtn);
+    comprarBtns.forEach(btn => btn.addEventListener("click" , addTocart));
   
   }
+
+  const addTocart = async (e) => {
+
+   const productToCart = await getProduct(e.target.id);
+
+   cart.push(productToCart);
+
+ renderCart();
+  
+
+  }
+
+
+  const cart = []
+
+  const renderCart = () => {
+
+    const inneCart  = document.querySelector(".innerCart");
+
+    inneCart.innerHTML= "";
+
+    cart.forEach(product => {
+
+        const card = document.createElement("div");
+
+        card.className = "card-mb-3";
+
+        card.innerHTML = `
+
+        <div class="row g-0">
+
+    <div class="col-md-4">
+      <img src=${product.data().img} class="img-fluid rounded-start" alt=${product.data().name}>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">${product.data().name}</h5>
+        <p class="card-text">${product.data().price}</p>
+        
+      </div>
+    </div>
+
+  </div>
+        
+     `;
+
+     inneCart.append(card);
+
+    });
+  }
+
+  
+
+  
