@@ -19,3 +19,10 @@ header {
     background-color: #fd7e14;
     overflow-y: scroll;
 }
+
+.inicio {
+
+    background-color: #ada6a1;
+    height: 100vh;
+
+}
