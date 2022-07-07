@@ -38,33 +38,78 @@ const addEvent = () => {
     const comprarBtns = document.querySelectorAll(".comprarBtn");
   
     comprarBtns.forEach(btn => btn.addEventListener("click" , addTocart));
+
   
   }
 
   const checkCart = (id) => cart.some(product => product.id === id);
+  
+
+  const updateTotal = (price) => {
+
+    const VisualTotal = document.querySelector(".VisualTotal");
+  
+    total += price;
+  
+    VisualTotal.textContent = total;
+  
+  }
+
+  
 
   const addTocart = async (e) => {
 
     if (checkCart(e.target.id)) {
 
-        return false;
+     return false;
+
     }
 
     else {
 
         const productToCart = await getProduct(e.target.id);
 
+        updateTotal(productToCart.data().price);
+
         cart.push(productToCart);
+
 
      renderCart();
 
+     
+
     }
+
     
 
     }
 
 
   const cart = []
+
+  let total = 0;
+
+  const finalizarcompra = document.querySelector(".finalizarcompra");
+
+  const vaciarcarrito = document.querySelector(".vaciarcarrito"); 
+
+
+  const emptyCart = () => {
+
+    total = 0;
+
+    document.querySelector(".VisualTotal").textContent = total;
+
+    cart.length = 0;
+
+    document.querySelector(".innerCart").innerHTML = "";
+
+
+  }
+
+  finalizarcompra.addEventListener("click", emptyCart);
+
+  vaciarcarrito.addEventListener("click", emptyCart);
 
 
   const renderCart = () => {

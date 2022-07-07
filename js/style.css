@@ -17,4 +17,5 @@ header {
 .cartContainer {
     height: 100%;
     background-color: #fd7e14;
+    overflow-y: scroll;
 }
