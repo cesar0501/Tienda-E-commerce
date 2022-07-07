@@ -1,5 +1,7 @@
 import { getProducts, getProduct } from "./firebase.js";
 
+
+
 const renderCards = async (productsArr) => {
 
     const products = await productsArr;
@@ -39,19 +41,31 @@ const addEvent = () => {
   
   }
 
+  const checkCart = (id) => cart.some(product => product.id === id);
+
   const addTocart = async (e) => {
 
-   const productToCart = await getProduct(e.target.id);
+    if (checkCart(e.target.id)) {
 
-   cart.push(productToCart);
+        return false;
+    }
 
- renderCart();
-  
+    else {
 
-  }
+        const productToCart = await getProduct(e.target.id);
+
+        cart.push(productToCart);
+
+     renderCart();
+
+    }
+    
+
+    }
 
 
   const cart = []
+
 
   const renderCart = () => {
 
@@ -69,19 +83,19 @@ const addEvent = () => {
 
         <div class="row g-0">
 
-    <div class="col-md-4">
+     <div class="col-md-4">
       <img src=${product.data().img} class="img-fluid rounded-start" alt=${product.data().name}>
-    </div>
+     </div>
 
-    <div class="col-md-8">
+     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">${product.data().name}</h5>
         <p class="card-text">${product.data().price}</p>
         
       </div>
-    </div>
+     </div>
 
-  </div>
+     </div>
         
      `;
 

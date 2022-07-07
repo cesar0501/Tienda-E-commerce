@@ -41,8 +41,10 @@ if (docSnap.exists()) {
 } else {
   console.log("No such document!");
 }
+
     
 }
+
 
  
 
